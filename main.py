@@ -9,20 +9,22 @@ success,image = video.read()
 count = 0
 
 
-
+show = False
 
 while success:
     cv2.imwrite("test.jpg", image)
-    result, modImg = findLight("red", False)
+    result, modImage = findLight("red", show)
     if result :
         print("RED")
     else :
         print("NONE")
     count = count + 1
-    cv2.imshow("video", modImg)
-    if cv2.waitKey(33) == 27: 
-		break
+   
     success, image = video.read()
+    if show:
+        cv2.show("Filtered", modImage)
+        if cv2.waitKey(33) == 27: 
+		    break
 
 video.release()
 cv2.destroyAllWindows()
