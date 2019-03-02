@@ -19,27 +19,39 @@ def findLight(clr, modify = False) :
     img_hsv=cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     #lower = np.array([170,0,0])
     #upper = np.array([255,120,60])
-   # mask = cv2.inRange(image, colors[clr][0], colors[clr][1])
+    #mask = cv2.inRange(image, colors[clr][0], colors[clr][1])
     mask = cv2.inRange(img_hsv, colors[clr][0], colors[clr][1])
     #print colors[clr][0]
     #print colors[clr][1]
-    
+
     rate = np.count_nonzero(mask) / 100000.0
 
     if modify :
         maskImage = cv2.bitwise_and(img_hsv, img_hsv, mask = mask)
-       # maskImage = cv2.bitwise_and(image, image, mask = mask)
+        #maskImage = cv2.bitwise_and(image, image, mask = mask)
         image = np.hstack([maskImage, img_hsv ])
         #image = cv2.bitwise_and(image, image, mask = mask)
-        print "we modifying image"
+        print ("we modifying image")
     #print rate
     if rate > 0.10:
         return True, image;
     else :
         return False, image;
 
+if __name__ == "__main__":
+    video = cv2.VideoCapture('traffic.mp4')
+    success,image = video.read()
+    while success:
+        cv2.imwrite("test.jpg", image)
+        result, modImage = findLight("red", True)
+        cv2.imshow("Filtered", modImage)
+        if cv2.waitKey(33) == 27:
+            break
+        success, image = video.read()
+video.release()
+cv2.destroyAllWindows()
 
 
-    
+
 
 
