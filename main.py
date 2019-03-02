@@ -10,7 +10,7 @@ count = 0
 while success:
     cv2.imwrite("test.jpg", image)
     if findLight() == True :
-        print("RED")å
+        print("RED")
     else :
         print("NONE")
     count = count + 1
