@@ -13,11 +13,8 @@ show = False
 
 while success:
     cv2.imwrite("test.jpg", image)
-    result, modImage = findLight("red", show)
+    result, modImage = findLight("red")
     if result :
-=======
-    if findLight() == True :
->>>>>>> beda58482e11fc5d0c19874e8bca398450b9b0db
         print("RED")
     else :
         print("NONE")
