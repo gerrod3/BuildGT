@@ -10,7 +10,6 @@ video = cv2.VideoCapture('traffic.mp4')
 success,image = video.read()
 count = 0
 
-
 show = False
 
 while success:
