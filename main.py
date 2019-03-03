@@ -20,26 +20,35 @@ while success:
     result1, modImage = findLight("red")
     result2, carImage = findCar()
     result = result1 and result2
-    string = ""
     if result1:
-        string.append("Red Light ")
+        toprint = "Red Light"
     if result2:
-        string.append("Car")
+        toprint = "Car"
     if result :
-        print("STOP, %s" % string)
+        print("STOP, Red Light and Car")
         state = GPIO.input(18)
         if state == False:
             GPIO.output(18,GPIO.HIGH)
             GPIO.output(12,GPIO.LOW)
+            GPIO.output(13,GPIO.LOW)
+    elif result1 or result2:
+        print("CAUTION, %s", toprint)
+        state = GPIO.input(12)
+        if state == False:
+            GPIO.output(12,GPIO.HIGH)
+            GPIO.output(13,GPIO.LOW)
+            GPIO.output(18,GPIO.LOW)
     else :
         print("NONE")
         state = GPIO.input(12)
         if state == False:
-            GPIO.output(12,GPIO.HIGH)
+            GPIO.output(13,GPIO.HIGH)
+            GPIO.output(12,GPIO.LOW)
             GPIO.output(18,GPIO.LOW)
     success, image = video.read()
 
 GPIO.output(12,GPIO.LOW)
 GPIO.output(18,GPIO.LOW)
+GPIO.output(13,GPIO.LOW)
 video.release()
 cv2.destroyAllWindows()
