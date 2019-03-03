@@ -8,9 +8,6 @@ from carTest import findCar
 
 video = cv2.VideoCapture(0)
 success,image = video.read()
-count = 0
-
-show = False
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -21,7 +18,7 @@ while success:
     cv2.imwrite("test.jpg", image)
     result, modImage = findLight("red")
     result2, carImage = findCar()
-    result = result and result2
+    result = result or result2
     if result :
         print("RED")
         state = GPIO.input(18)
@@ -34,13 +31,7 @@ while success:
         if state == False:
             GPIO.output(15,GPIO.HIGH)
             GPIO.output(18,GPIO.LOW)
-    count = count + 1
-
-    success, image = video.read()
-    if show:
-        cv2.imshow("Filtered", modImage)
-        if cv2.waitKey(33) == 27:
-            break
+            success, image = video.read()
 
 GPIO.output(15,GPIO.LOW)
 GPIO.output(18,GPIO.LOW)
