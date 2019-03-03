@@ -22,7 +22,8 @@ def findLight(clr , modify = False) :
     if modify:
         maskImage = cv2.bitwise_and(img_hsv, img_hsv, mask = mask)
        # maskImage = cv2.bitwise_and(image, image, mask = mask)
-        image = np.hstack([img_hsv, maskImage])
+        #image = np.hstack([img_hsv, maskImage])
+        image = maskImage
 
     if rate > 0.004:
         return True, image

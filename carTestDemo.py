@@ -3,36 +3,30 @@
 import numpy
 import cv2
 
-# capture frames from a video
-cap = cv2.VideoCapture('cars.mp4')
 
-# Trained XML classifiers describes some features of some object we want to detect
-car_cascade = cv2.CascadeClassifier('cars.xml')
-
-# loop runs if capturing has been initialized.
-while True:
-	# reads frames from a video
-	ret, frames = cap.read()
-
-	# convert to gray scale of each frames
-	gray = cv2.cvtColor(frames, cv2.COLOR_BGR2GRAY)
-
-
-	# Detects cars of different sizes in the input image
+def findCar() :
+	image = cv2.imread("test.jpg")
+	car_cascade = cv2.CascadeClassifier('cars.xml')
+	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 	cars = car_cascade.detectMultiScale(gray,3, 1,0, (10,10))
-
-	# To draw a rectangle in each cars
 	for (x,y,w,h) in cars:
-		cv2.rectangle(frames,(x,y),(x+w,y+h),(0,0,255),2)
+		cv2.rectangle(image,(x,y),(x+w,y+h),(0,0,255),2)
 
-# Display frames in a window
-	cv2.imshow('video2', frames)
 	if len(cars) == 0:
-		print ("No cars detected")
+		return False, image
+	else:
+		return True, image
 
-	# Wait for Esc key to stop
-	if cv2.waitKey(33) == 27:
-		break
+if __name__ == "__main__":
+    video = cv2.VideoCapture('car.mp4')
+    success,image = video.read()
+    while success:
+        cv2.imwrite("test.jpg", image)
+        result, modImage = findCar()
+        cv2.imshow("Filtered", modImage)
+        if cv2.waitKey(33) == 27:
+            break
+        success, image = video.read()
 
-# De-allocate any associated memory usage
+video.release()
 cv2.destroyAllWindows()

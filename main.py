@@ -1,8 +1,10 @@
 import sys
 import numpy as np
 import cv2
+import RPi.GPIO as GPIO
 
 from TrafficLight import findLight
+from carTest import findCar
 
 video = cv2.VideoCapture('traffic.mp4')
 success,image = video.read()
@@ -18,6 +20,8 @@ GPIO.setup(18,GPIO.OUT)
 while success:
     cv2.imwrite("test.jpg", image)
     result, modImage = findLight("red")
+    result2, carImage = findCar()
+    result = result and result2
     if result :
         print("RED")
         state = GPIO.input(18)
