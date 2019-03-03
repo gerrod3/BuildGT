@@ -13,9 +13,9 @@ def findCar() :
 		cv2.rectangle(image,(x,y),(x+w,y+h),(0,0,255),2)
 
 	if len(cars) == 0:
-		return False, image
-	else:
 		return True, image
+	else:
+		return False, image
 
 cv2.destroyAllWindows()
 
