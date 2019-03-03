@@ -6,7 +6,7 @@ import RPi.GPIO as GPIO
 from TrafficLight import findLight
 from carTest import findCar
 
-video = cv2.VideoCapture('traffic.mp4')
+video = cv2.VideoCapture(0)
 success,image = video.read()
 count = 0
 
