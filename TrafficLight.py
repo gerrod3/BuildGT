@@ -18,14 +18,13 @@ def findLight(clr , modify = False) :
 
     mask = cv2.inRange(img_hsv, colors[clr][0], colors[clr][1])
     rate = np.count_nonzero(mask) / 100000.0
-
+    print rate
     if modify:
         maskImage = cv2.bitwise_and(img_hsv, img_hsv, mask = mask)
        # maskImage = cv2.bitwise_and(image, image, mask = mask)
-        #image = np.hstack([img_hsv, maskImage])
-        image = maskImage
+        image = np.hstack([img_hsv, maskImage])
 
-    if rate > 0.004:
+    if rate > 0.0039:
         return True, image
     else :
         return False, image

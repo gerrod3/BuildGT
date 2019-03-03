@@ -13,14 +13,20 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(12,GPIO.OUT)
 GPIO.setup(18,GPIO.OUT)
+GPIO.setup(13, GPIO.OUT)
 
 while success:
     cv2.imwrite("test.jpg", image)
-    result, modImage = findLight("red")
+    result1, modImage = findLight("red")
     result2, carImage = findCar()
-    result = result and result2
+    result = result1 and result2
+    string = ""
+    if result1:
+        string.append("Red Light ")
+    if result2:
+        string.append("Car")
     if result :
-        print("RED")
+        print("STOP, %s" % string)
         state = GPIO.input(18)
         if state == False:
             GPIO.output(18,GPIO.HIGH)
