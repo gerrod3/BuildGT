@@ -18,7 +18,7 @@ while success:
     cv2.imwrite("test.jpg", image)
     result, modImage = findLight("red")
     result2, carImage = findCar()
-    result = result or result2
+    result = result and result2
     if result :
         print("RED")
         state = GPIO.input(18)
