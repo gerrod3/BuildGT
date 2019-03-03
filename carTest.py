@@ -8,7 +8,7 @@ def findCar() :
 	image = cv2.imread("test.jpg")
 	car_cascade = cv2.CascadeClassifier('cars.xml')
 	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-	cars = car_cascade.detectMultiScale(gray,3, 1,0, (10,10))
+	cars = car_cascade.detectMultiScale(gray, 3, 1, 0, (100, 100))
 	for (x,y,w,h) in cars:
 		cv2.rectangle(image,(x,y),(x+w,y+h),(0,0,255),2)
 
@@ -18,3 +18,5 @@ def findCar() :
 		return True, image
 
 cv2.destroyAllWindows()
+
+
