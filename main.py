@@ -33,17 +33,17 @@ while success:
             GPIO.output(13,GPIO.LOW)
     elif result1 or result2:
         print("CAUTION, %s", toprint)
-        state = GPIO.input(12)
+        state = GPIO.input(13)
         if state == False:
-            GPIO.output(12,GPIO.HIGH)
-            GPIO.output(13,GPIO.LOW)
+            GPIO.output(13,GPIO.HIGH)
+            GPIO.output(12,GPIO.LOW)
             GPIO.output(18,GPIO.LOW)
     else :
         print("NONE")
         state = GPIO.input(12)
         if state == False:
-            GPIO.output(13,GPIO.HIGH)
-            GPIO.output(12,GPIO.LOW)
+            GPIO.output(12,GPIO.HIGH)
+            GPIO.output(13,GPIO.LOW)
             GPIO.output(18,GPIO.LOW)
     success, image = video.read()
 
